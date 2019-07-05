@@ -5,16 +5,16 @@ using UnityEngine;
 public class PlayerStartPoint : MonoBehaviour {
 
     private PlayerController player;
-    private CameraController camera;
+    private CameraController cameraController;
 
     // Start is called before the first frame update
     void Start() {
         player = FindObjectOfType<PlayerController>();
-        camera = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CameraController>();
 
-        player.transform.position = transform.position;
-        camera.transform.position = new Vector3(transform.position.x, 
-                                                transform.position.y, 
-                                                camera.transform.position.z);
+        player.teleportToPosition(transform.position);
+        cameraController.transform.position = new Vector3(transform.position.x, 
+                                                          transform.position.y,
+                                                          cameraController.transform.position.z);
     }
 }

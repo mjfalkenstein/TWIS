@@ -14,6 +14,8 @@ public class CharacterController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         currentHealth = maxHealth;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<Animator>().enabled = false;
     }
 
     // Update is called once per frame
