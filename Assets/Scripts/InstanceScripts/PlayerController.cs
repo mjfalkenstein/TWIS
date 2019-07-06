@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour{
     private static int partyIndex = 99;
     private CharacterController currentCharacter;
     private SpriteRenderer sr;
+    private GameObject partyObject;
 
     Direction currentDir = Direction.South;
     Vector2 input;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour{
         startPos = gameObject.transform.position;
         SetNextCharacterController();
         sr = gameObject.GetComponent<SpriteRenderer>();
+        partyObject = GameObject.Find("Party");
 
         // prevents the game from accidentally creating multiple players
         if (!exists) {
@@ -41,10 +43,10 @@ public class PlayerController : MonoBehaviour{
         if (!walls) walls = GetWalls();
 
         // If we're not moving, accept movement input and update the sprite
+        HandleInput();
         if (!isMoving) {
             HandleMovement();
             HandleMovementSprite();
-            HandleInput();
 
             // Only reset the animation if the player has stopped providing movement input
             if (input.magnitude == 0.0f) {
@@ -94,26 +96,36 @@ public class PlayerController : MonoBehaviour{
     private void HandleMovementSprite() {
         int dX = 0;
         int dY = 0;
+        Sprite newSprite = null;
         switch (currentDir) {
             case Direction.West:
-                sr.sprite = currentCharacter.westSprite;
+                newSprite = currentCharacter.westSprite;
                 dX = -1;
                 break;
             case Direction.East:
-                sr.sprite = currentCharacter.eastSprite;
+                newSprite = currentCharacter.eastSprite;
                 dX = 1;
                 break;
             case Direction.North:
-                sr.sprite = currentCharacter.northSprite;
+                newSprite = currentCharacter.northSprite;
                 dY = 1;
                 break;
             case Direction.South:
-                sr.sprite = currentCharacter.southSprite;
+                newSprite = currentCharacter.southSprite;
                 dY = -1;
                 break;
         }
-        animator.SetFloat("dX", dX);
-        animator.SetFloat("dY", dY);
+
+        // update the sprite and animation for every member of the party
+        // this is necessary to make sure the transition between characters is smooth
+        foreach (Transform partyMember in partyObject.transform) {
+            SpriteRenderer partySpriteRenderer = partyMember.GetComponent<SpriteRenderer>();
+            Animator partyAnimator = partyMember.GetComponent<Animator>();
+            partySpriteRenderer.sprite = newSprite;
+            partyAnimator.SetFloat("dX", dX);
+            partyAnimator.SetFloat("dY", dY);
+            partyAnimator.Update(0.0f);
+        }
     }
 
     // Handle actually moving the player
@@ -183,7 +195,7 @@ public class PlayerController : MonoBehaviour{
 
     // Get the next characterController in the Party
     private void SetNextCharacterController() {
-        GameObject partyObject = GameObject.Find("Party");
+        partyObject = GameObject.Find("Party");
         int partyChildCount = partyObject.transform.childCount;
         partyIndex = partyIndex >= partyChildCount - 1 ? 0 : partyIndex + 1;
 
