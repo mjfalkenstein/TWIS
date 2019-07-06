@@ -7,8 +7,7 @@ public class PlayerController : MonoBehaviour{
     private Animator animator;
     private static bool exists = false;
     private static int partyIndex = 99;
-    private CharacterController currentCharacter;
-    private SpriteRenderer sr;
+    private UnitController currentCharacter;
     private GameObject partyObject;
 
     Direction currentDir = Direction.South;
@@ -27,7 +26,6 @@ public class PlayerController : MonoBehaviour{
         // have to give startPos some initial value in order for the movement to work properly
         startPos = gameObject.transform.position;
         SetNextCharacterController();
-        sr = gameObject.GetComponent<SpriteRenderer>();
         partyObject = GameObject.Find("Party");
 
         // prevents the game from accidentally creating multiple players
@@ -37,9 +35,14 @@ public class PlayerController : MonoBehaviour{
         } else {
             Destroy(gameObject);
         }
+        print(gameObject.name + " loaded");
     }
 
     void FixedUpdate() {
+
+        // manually need to wait for the units to load before we can read in their components
+        // this should only ever happen once per scene load
+        if (currentCharacter.GetComponent<SpriteRenderer>().enabled == false) SetNextCharacterController();
         if (!walls) walls = GetWalls();
 
         // If we're not moving, accept movement input and update the sprite
@@ -203,13 +206,15 @@ public class PlayerController : MonoBehaviour{
             currentCharacter.GetComponent<SpriteRenderer>().enabled = false;
             currentCharacter.GetComponent<Animator>().enabled = false;
         }
-        currentCharacter = partyObject.transform.GetChild(partyIndex).GetComponent<CharacterController>();
+        currentCharacter = partyObject.transform.GetChild(partyIndex).GetComponent<UnitController>();
         currentCharacter.transform.position = gameObject.transform.position;
-        currentCharacter.GetComponent<SpriteRenderer>().enabled = true;
-        currentCharacter.GetComponent<Animator>().enabled = true;
-
+        SpriteRenderer sr = currentCharacter.GetComponent<SpriteRenderer>();
         animator = currentCharacter.GetComponent<Animator>();
-        CopyComponent(currentCharacter.GetComponent<SpriteRenderer>(), gameObject);
+        sr.enabled = true;
+        animator.enabled = true;
+        animator.Update(0.0f);
+
+        CopyComponent(sr, gameObject);
         CopyComponent(animator, gameObject);
     }
 

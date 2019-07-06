@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour { 
+public class UnitController : MonoBehaviour { 
 
     public int maxHealth = 10;
     public int currentHealth;
@@ -16,6 +16,7 @@ public class CharacterController : MonoBehaviour {
         currentHealth = maxHealth;
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<Animator>().enabled = false;
+        print(gameObject.name + " loaded");
     }
 
     // Update is called once per frame

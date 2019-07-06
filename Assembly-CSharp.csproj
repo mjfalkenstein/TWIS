@@ -61,9 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\InstanceScripts\CharacterController.cs" />
     <Compile Include="Assets\Scripts\InstanceScripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\InstanceScripts\UIController.cs" />
+    <Compile Include="Assets\Scripts\InstanceScripts\UnitController.cs" />
     <Compile Include="Assets\Scripts\LoadNewArea.cs" />
     <Compile Include="Assets\Scripts\PlayerStartPoint.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\CircleObject.cs" />
