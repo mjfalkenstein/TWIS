@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,7 @@ public class PlayerController : MonoBehaviour{
 
     private Animator animator;
     private static bool exists = false;
-    private static int partyIndex = 99;
+    private static int partyIndex = -1;
     private UnitController currentCharacter;
     private GameObject partyObject;
 
@@ -25,12 +26,11 @@ public class PlayerController : MonoBehaviour{
 
         // have to give startPos some initial value in order for the movement to work properly
         startPos = gameObject.transform.position;
-        SetNextCharacterController();
-        partyObject = GameObject.Find("Party");
 
         // prevents the game from accidentally creating multiple players
         if (!exists) {
             exists = true;
+            SetNextCharacterController();
             DontDestroyOnLoad(transform.gameObject);
         } else {
             Destroy(gameObject);
@@ -42,7 +42,10 @@ public class PlayerController : MonoBehaviour{
 
         // manually need to wait for the units to load before we can read in their components
         // this should only ever happen once per scene load
-        if (currentCharacter.GetComponent<SpriteRenderer>().enabled == false) SetNextCharacterController();
+        if (currentCharacter.GetComponent<SpriteRenderer>().enabled == false) {
+            partyIndex = -1;
+            SetNextCharacterController();
+        }
         if (!walls) walls = GetWalls();
 
         // If we're not moving, accept movement input and update the sprite
@@ -200,7 +203,7 @@ public class PlayerController : MonoBehaviour{
     private void SetNextCharacterController() {
         partyObject = GameObject.Find("Party");
         int partyChildCount = partyObject.transform.childCount;
-        partyIndex = partyIndex >= partyChildCount - 1 ? 0 : partyIndex + 1;
+        partyIndex = partyIndex >= partyChildCount - 1 || currentCharacter == null ? 0 : partyIndex + 1;
 
         if (currentCharacter != null) {
             currentCharacter.GetComponent<SpriteRenderer>().enabled = false;

@@ -26,9 +26,10 @@ public class LoadNewArea : MonoBehaviour {
 
             // We include the "epsilon" as a pre-defined small value to avoid floating-point rounding issues
             if (otherPos.x % 1 <= (float.Epsilon * 100) && otherPos.y % 1 <= (float.Epsilon * 100)) {
-                LoadScene();
+                SceneManager.LoadScene(levelToLoad);
                 entering = null;
                 readyToLoad = false;
+                // LoadScene();
             }
         }
     }
@@ -40,13 +41,13 @@ public class LoadNewArea : MonoBehaviour {
         }
     }
 
-    private IEnumerator LoadScene() {
-        // Start loading the scene
-        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Single);
-        // Wait until the level finish loading
-        while (!asyncLoadLevel.isDone)
-            yield return null;
-        // Wait a frame so every Awake and Start method is called
-        yield return new WaitForEndOfFrame();
-    }
+    //private IEnumerator LoadScene() {
+    //    // Start loading the scene
+    //    AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Single);
+    //    // Wait until the level finish loading
+    //    while (!asyncLoadLevel.isDone)
+    //        yield return null;
+    //    // Wait a frame so every Awake and Start method is called
+    //    yield return new WaitForEndOfFrame();
+    //}
 }
