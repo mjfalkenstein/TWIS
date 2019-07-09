@@ -2557,7 +2557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &876178471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2609,7 +2609,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -2639,6 +2639,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &908004834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908004836}
+  - component: {fileID: 908004835}
+  m_Layer: 0
+  m_Name: Interface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &908004835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908004834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2e9894e182a1248a1b34e97cba6409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &908004836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908004834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &914777305
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,6 +3129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 0
+  maxMana: 10
+  currentMana: 0
   northSprite: {fileID: -7906619671070078801, guid: d685afdcf7392504c854157c789bb2d8,
     type: 3}
   eastSprite: {fileID: -8518447822653339836, guid: d685afdcf7392504c854157c789bb2d8,
@@ -3094,6 +3139,7 @@ MonoBehaviour:
     type: 3}
   westSprite: {fileID: 7783088195671331462, guid: d685afdcf7392504c854157c789bb2d8,
     type: 3}
+  portrait: {fileID: 21300000, guid: 20d7d368edee85d4e98e1bb5e5385915, type: 3}
 --- !u!95 &956587055
 Animator:
   serializedVersion: 3
@@ -5853,6 +5899,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 0
+  maxMana: 10
+  currentMana: 0
   northSprite: {fileID: -7842708484193431620, guid: 5c476be37653c2f4b815d0c8141f52f3,
     type: 3}
   eastSprite: {fileID: -3040195640670675493, guid: 5c476be37653c2f4b815d0c8141f52f3,
@@ -5860,6 +5908,7 @@ MonoBehaviour:
   southSprite: {fileID: 4914754768722322092, guid: 5c476be37653c2f4b815d0c8141f52f3,
     type: 3}
   westSprite: {fileID: 1141152664276221, guid: 5c476be37653c2f4b815d0c8141f52f3, type: 3}
+  portrait: {fileID: 21300000, guid: 09ccfc937f222d049860c290909e8301, type: 3}
 --- !u!1 &1948717646
 GameObject:
   m_ObjectHideFlags: 0
